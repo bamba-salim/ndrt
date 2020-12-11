@@ -11,7 +11,7 @@ if (isset($_GET['action'])):
     case 'in': // Connection -> done
         $u = $USER->getUser($login);
         if ($u != null) {
-                $_SESSION['user'] = $LOGIN->logUser($u->info);
+                $_SESSION['user'] = $USER->logUser($u->info->ref);
                 $NAV->goBack();
         } else {
             $NAV->goBack();

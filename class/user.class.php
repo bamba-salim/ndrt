@@ -114,4 +114,18 @@ class USER extends DB implements USER_CONST
         $req->data = [":ref" => $user->ref, ":username" => $user->username, ":nom" => $user->nom, ":prenom" => $user->prenom, ":mail" => $user->mail, ":password" => $user->password, ":role" => $user->role, ":created_at" => $this->date];
         $this->create($req);
     }
+
+    public function logUser($test)
+    {
+      $user = $this->getUser($test)->info;
+      $account = new stdClass();
+      $account->log = true;
+      $account->id = $user->id;
+      $account->ref = $user->ref;
+      $account->username = $user->username;
+      $account->mail = $user->mail;
+      $account->role = $user->role;
+      $account->idRole = $user->roleId;
+      return $account;
+    }
 }
