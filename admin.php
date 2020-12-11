@@ -14,7 +14,7 @@ include_once('./inc/head.inc.php');
         <?php
         if (isset($_GET['ad'])) {
           echo $ADMIN->getAdminTitle($_GET['ad']);
-          if ($_GET['ad'] == "mail")  echo "<p class='p-0 m-0 h6'> <span class='small'>" . $MAIL->unreadMail() . "</span></p>";
+          if ($_GET['ad'] == "mail")  echo "<p class='p-0 m-0 h6'> <span class='small'>" . $MAIL->readMail($MAIL->UNREADED) . "</span></p>";
           if ($ADMIN->addButton($_GET['ad'])) echo "<a href='./admin?ad={$_GET['ad']}&action=add' class='py-0 px-1 rounded-0 text-gold' style='cursor: pointer;'>" .  ICON::PLUS . "</a>";
         } else {
           echo "Tableau de bord";

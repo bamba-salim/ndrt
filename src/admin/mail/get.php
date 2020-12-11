@@ -4,33 +4,21 @@ $NAV = new NAV();
 
 ?>
 <div class="container">
-  <div class="row my-4">
+  <div class="row">
     <div class="col-3">
-      <div class="nav flex-column nav-pills" id="mails-tab" role="tablist" aria-orientation="vertical">
-        <a class="<?=STYLE::MAIL_LINK_MENU?> active" id="unreaded-tab" data-toggle="pill" href="#unreaded" role="tab" aria-controls="unreaded" aria-selected="true">Non-lus.</a>
-        <a class="<?=STYLE::MAIL_LINK_MENU?>" id="readed-tab" data-toggle="pill" href="#readed" role="tab" aria-controls="readed" aria-selected="false">Lus</a>
-        <a class="<?=STYLE::MAIL_LINK_MENU?>" id="archived-tab" data-toggle="pill" href="#archived" role="tab" aria-controls="archived" aria-selected="false">Archivés</a>
-        <a class="<?=STYLE::MAIL_LINK_MENU?>" id="saved-tab" data-toggle="pill" href="#saved" role="tab" aria-controls="saved" aria-selected="false">Important</a>
-        <a class="<?=STYLE::MAIL_LINK_MENU?>" id="trashed-tab" data-toggle="pill" href="#trashed" role="tab" aria-controls="trashed" aria-selected="false">Corbeille</a>
+      <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+        <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Home</a>
+        <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Profile</a>
+        <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Messages</a>
+        <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</a>
       </div>
     </div>
     <div class="col-9">
-      <div class="tab-content" id="mails-tabContent">
-        <div class="tab-pane fade show active" id="unreaded" role="tabpanel" aria-labelledby="unreaded-tab">
-          Non-lus
-        </div>
-        <div class="tab-pane fade" id="readed" role="tabpanel" aria-labelledby="readed-tab">
-          Lus
-        </div>
-        <div class="tab-pane fade" id="archived" role="tabpanel" aria-labelledby="archived-tab">
-          Archivés
-        </div>
-        <div class="tab-pane fade" id="saved" role="tabpanel" aria-labelledby="saved-tab">
-          Important
-        </div>
-        <div class="tab-pane fade" id="trashed" role="tabpanel" aria-labelledby="trashed-tab">
-          Corbeille
-        </div>
+      <div class="tab-content" id="v-pills-tabContent">
+        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">...</div>
+        <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">...</div>
+        <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">...</div>
+        <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">...</div>
       </div>
     </div>
   </div>
