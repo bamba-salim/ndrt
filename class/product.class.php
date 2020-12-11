@@ -95,7 +95,7 @@ class PRODUCT extends DB
     $c = !empty($test) ? self::CATEGORY_CONDITIONS : '';
 
     $req = [
-      "conditions" => $c  . $e . $r . $n . $l,
+      "conditions" => "$c $e $r $n $l",
       "join" => [self::JOIN_ALT, self::JOIN_CAT, self::JOIN_COL],
       "colonnes" => [self::PRODUCT_LIST_COL, self::COL_COL, self::ALT_COL, self::CAT_COL],
       "data" => [":test" => $test]
@@ -106,8 +106,8 @@ class PRODUCT extends DB
     $newReq->join = [self::JOIN_ALT, self::JOIN_CAT, self::JOIN_COL];
     $newReq->colonnes = [self::PRODUCT_LIST_COL, self::COL_COL, self::ALT_COL, self::CAT_COL];
     $newReq->conditions = [":test" => $test];
-
-    return $this->select($req);
+    $list = $this->select($req);
+    return $list;
   }
 
 
@@ -150,6 +150,7 @@ class PRODUCT extends DB
     <section class="container mb-3">
       <div class="row row-cols-2 row-cols-lg-4 my-2">
         <?php foreach ($this->getProductList($type) as $value) : ?>
+
           <div class="col mb-1">
             <div class="card h-100 border-0 my-2 ndrt-hover rounded-0 p-0" onClick="window.location='./product?ref=<?= $value->ref ?>';">
               <figure class="m-0 p-0">

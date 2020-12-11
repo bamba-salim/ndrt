@@ -1,22 +1,32 @@
 <?php
-include_once('./config/config.php');
+include_once './config/config.php';
 
 $cat = new stdClass();
 $ptil = 404;
 
-if (!empty($_GET['id'])) $cat->test = $_GET['id'];
-if (!empty($_GET['cat'])) $cat->test = $_GET['cat'];
+if (!empty($_GET['id'])) {
+  $cat->test = $_GET['id'];
+}
 
-$products  = !empty($cat->test) ? $PRODUCT->getProductList($cat) : $PRODUCT->getProductList();
+if (!empty($_GET['cat'])) {
+  $cat->test = $_GET['cat'];
+}
 
- if(empty($cat->test) && !empty($products)) $ptil = CATEGORY::ALL;
- if(!empty($cat->test)) $ptil = $CATEGORY->getCategory($cat)->name;
+$products = !empty($cat->test) ? $PRODUCT->getProductList($cat) : $PRODUCT->getProductList();
+
+if (empty($cat->test) && !empty($products)) {
+  $ptil = CATEGORY::ALL;
+}
+
+if (!empty($cat->test)) {
+  $ptil = $CATEGORY->getCategory($cat)->name;
+}
 
 $type['avoid'] = true;
 $type['rand'] = true;
 $categories = $CATEGORY->getCategoryList($type);
-include_once('./inc/head.inc.php');
-include_once('./inc/header.inc.php');
+include_once './inc/head.inc.php';
+include_once './inc/header.inc.php';
 ?>
 <main>
   <nav class='container'>
@@ -33,7 +43,7 @@ include_once('./inc/header.inc.php');
           <div class='breadcrumb p-3 bg-light shadow-sm <?= STYLE::NO_BDR_AND_RND ?>'>
             <?php foreach ($categories as $value) :
               extract($CATEGORY->getCatColor($value->idType));
-              $hiddenCat =  $NAV->hidden(empty($PRODUCT->getProductList($value)));
+              $hiddenCat = $NAV->hidden(empty($PRODUCT->getProductList($value)));
             ?>
               <a class='badge <?= "badge-{$bg} text-{$txt}" . SITE::NO_BDR_AND_RND ?>  m-2 p-2 small' href='./category?cat=<?= $value->name ?>' <?= $hiddenCat ?>>
                 <?= strtolower($value->name) ?>
@@ -43,10 +53,10 @@ include_once('./inc/header.inc.php');
         </section>
       </div>
       <div class="col ">
-        <?php !empty($products) ? include_once('./src/module/list_category_module.php') : $NAV->notFound($CATEGORY->getFromUrl()) ?>
+        <?php !empty($products) ? include_once './src/module/list_category_module.php' : $NAV->notFound($CATEGORY->getFromUrl()) ?>
       </div>
 
     </div>
   </section>
 </main>
-<?php include_once('./inc/footer.inc.php'); ?>
+<?php include_once './inc/footer.inc.php'; ?>

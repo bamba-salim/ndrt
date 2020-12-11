@@ -33,7 +33,7 @@ if (!empty($p)) {
     $alt->limit = 4;
     $alt->rand = true;
     $alt->except = $p->id;
-    $alt->bg = "dark";
+    $alt->bg = "info";
     $alt->txt = "white";
     $alt->title = "PRODUITS SIMILAIRES \"{$p->alt}\"";
 
@@ -43,7 +43,7 @@ if (!empty($p)) {
     $new->except = $p->id;
     $new->bg = "success";
     $new->txt = "white";
-    $new->title = "PRODUITS SIMILAIRES \"{$p->cat}\"";
+    $new->title = "DERNIERS ARTICLES";
 
 }
 ?>
