@@ -6,6 +6,7 @@ if (isset($_GET['action'])):
     case 'out': // Déconnection -> done
         unset($_SESSION['user']);
         $NAV->redirect($NAV->isLog());
+        exit();
         break;
     case 'in': // Connection -> done
         $u = $USER->getUser($login);
