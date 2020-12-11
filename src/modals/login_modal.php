@@ -2,17 +2,17 @@
   <div class="modal-dialog modal-lg modal-dialog-centered">
     <div class="modal-content rounded-0 border-0">
       <div class="modal-header bg-dark rounded-0">
-        <?= "<h5 class='text-gold text-uppercase'>" . LOG::IN_MSG . "</h5>" ?>
+        <?="<h5 class='text-gold text-uppercase'>" . LOG::IN_MSG . "</h5>"?>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true" class="text-gold"><?= ICON::CROSS ?></span>
+          <span aria-hidden="true" class="text-gold"><?=ICON::CROSS?></span>
         </button>
       </div>
       <div class="modal-body">
         <div class="row">
           <div class="col-3">
             <div class="nav flex-column nav-pills" id="login-tab" role="tablist" aria-orientation="vertical">
-              <a class="<?= STYLE::MAIL_LINK_MENU ?> active" id="sign-in-tab" data-toggle="pill" href="#sign-in" role="tab" aria-controls="sign-in" aria-selected="true">Se conneceter</a>
-              <a class="<?= STYLE::MAIL_LINK_MENU ?>" id="sign-up-tab" data-toggle="pill" href="#sign-up" role="tab" aria-controls="sign-up" aria-selected="false">S'inscrire</a>
+              <a class="<?=STYLE::MAIL_LINK_MENU?> active" id="sign-in-tab" data-toggle="pill" href="#sign-in" role="tab" aria-controls="sign-in" aria-selected="true">Se conneceter</a>
+              <a class="<?=STYLE::MAIL_LINK_MENU?>" id="sign-up-tab" data-toggle="pill" href="#sign-up" role="tab" aria-controls="sign-up" aria-selected="false">S'inscrire</a>
             </div>
           </div>
           <div class="col-9">

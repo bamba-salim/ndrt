@@ -25,7 +25,7 @@ if (isset($_GET['action'])):
             $ref = $PRODUCT->generateRef();
             DB()->query2(
                 'INSERT INTO product (name, price, img, color, cat, alt, col, ref, descr, compo, qty)
-						          VALUES (:name,:price,:img,:color,:cat,:alt,:col,:ref,:descr,:compo,:qty)',
+				          VALUES (:name,:price,:img,:color,:cat,:alt,:col,:ref,:descr,:compo,:qty)',
                 array(
                     ':name' => $name, ':price' => $price, ':img' => $img, ':color' => $color, ':cat' => $cat, ':alt' => $alt, ':col' => $col, ':ref' => $ref, ':descr' => $description, ':compo' => $composition, ':qty' => $qty,
                 )
@@ -72,6 +72,7 @@ if (isset($_GET['action'])):
 
         $USER = new USER();
         $FORM = new FORM();
+        $LOG = new LOG();
 
         $user = new stdClass();
         $user->role = $role;
@@ -84,7 +85,7 @@ if (isset($_GET['action'])):
 
         $USER->creatUser($user);
 
-        $_SESSION['user'] = $USER->logUser($USER->getUser($user->ref)->info);
+        $_SESSION['user'] = $LOG->logUser($USER->getUser($user->ref)->info);
         header("location: ./profile");
         break;
     case 'cart': // add to cart
