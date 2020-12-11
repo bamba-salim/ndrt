@@ -8,6 +8,8 @@ class FORM extends DB implements REGEX, IMG
     return $pass !== $verif || empty($pass) || !preg_match(REGEX::PASS, $pass);
   }
 
+  
+
   public function usedInput($input, $count, $regex)
   {
     return $count == 0 || empty($input) || !preg_match($regex, $input);
@@ -72,5 +74,10 @@ class FORM extends DB implements REGEX, IMG
         return $value;
       }
     }
+  }
+
+  public function creatPassword($password)
+  {
+    return password_hash($password, PASSWORD_BCRYPT, self::HASH);
   }
 }

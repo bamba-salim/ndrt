@@ -24,15 +24,15 @@ class LOG extends DB
 
   public function logUser($user)
   {
-    $user = new stdClass();
-    $user->log = true;
-    $user->id = $user->id;
-    $user->ref = $user->ref;
-    $user->username = $user->username;
-    $user->mail = $user->mail;
-    $user->role = $user->role;
-    $user->idRole = $user->roleId;
-    return $user;
+    $account = new stdClass();
+    $account->log = true;
+    $account->id = $user->id;
+    $account->ref = $user->ref;
+    $account->username = $user->username;
+    $account->mail = $user->mail;
+    $account->role = $user->role;
+    $account->idRole = $user->roleId;
+    return $account;
   }
 
 }
