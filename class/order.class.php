@@ -235,6 +235,10 @@ class ORDER extends DB
     foreach ($order->products as $product) {
       extract($product);
       $addDetails->data = [":orders" => $orderID, ":product" => $id, ":price" => $price, ":qty" => $qty];
+      $prod = new stdClass();
+      $prod->id = $id;
+      $prod->qty = $qty;
+      $this->updateProductQty($prod);
       $this->create($addDetails);
     }
   }
