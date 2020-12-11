@@ -1,0 +1,104 @@
+.gallery-selected img, .ndrtContainer img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: top;
+     object-position: top;
+}
+
+.gallery-selected {
+  width: 100%;
+  padding-bottom: 100%;
+  position: relative;
+}
+
+.ndrtText {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.ndrtContainer {
+  position: relative;
+  text-align: center;
+  color: white;
+  padding-top: 100%;
+  min-width: 100vw;
+}
+
+.ndrtSlider .ndrtContainer {
+  padding-bottom: 50% !important;
+  padding: 0;
+}
+
+@media only screen and (max-width: 768px) {
+  .ndrtSlider .ndrtContainer {
+    padding-bottom: 50% !important;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .ndrtSlider .ndrtContainer {
+    padding-bottom: 100% !important;
+  }
+}
+
+.ndrtContainer .ndrtOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: black;
+  opacity: 0.75;
+  width: 100%;
+  height: 100%;
+}
+
+.ndrtSlider .ndrtContainer .ndrtOverlay {
+  height: 120% !important;
+}
+
+@media screen {
+  .ndrtSlider .ndrtContainer .ndrtOverlay {
+    max-width: 600;
+  }
+}
+
+.ndrtSlider .ndrtContainer img {
+  height: 120% !important;
+}
+
+@media only screen and (min-width: 577px) {
+  .sm-screen {
+    display: none !important;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .sm-screen {
+    display: block !important;
+  }
+}
+
+@media only screen and (min-width: 577px) {
+  .md-screen {
+    display: block !important;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .md-screen {
+    display: none !important;
+  }
+}
+
+.ndrt-hover:hover {
+  cursor: pointer;
+  opacity: 0.75;
+}
+/*# sourceMappingURL=main.css.map */
