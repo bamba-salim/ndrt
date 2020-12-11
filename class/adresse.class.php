@@ -27,6 +27,7 @@ class ADRESSE extends DB
 
   public function getAdresseList($object)
   {
+    var_dump($object);
     $conditions = "";
     $test = "";
     $actived = "";
@@ -55,6 +56,7 @@ class ADRESSE extends DB
 
 
     $list =  $this->select($req);
+    var_dump($list);
     return !empty($list) ? $list : null;
   }
 
