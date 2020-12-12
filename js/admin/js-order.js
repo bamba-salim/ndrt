@@ -1,5 +1,5 @@
 function addButton() {
-  console.log("add button")
+  console.log("create order")
 }
 
 //href='./admin?ad=<?= $_GET['ad'] ?>&action=add'

@@ -82,7 +82,7 @@ interface ICON
   public const INSTAGRAM = '<i class="fab fa-instagram"></i>';
   public const FACEBOOK = '<i class="fab fa-facebook-f"></i>';
   public const TWITTER = '<i class="fab fa-twitter"></i>';
-  public const CRCLE = '<i class="fas fa-circle"></i>';
+  public const CIRCLE = '<i class="fas fa-circle"></i>';
   public const CROSS = '<i class="fas fa-times"></i>';
   public const REFRESH = '<i class="fas fa-sync"></i>';
   public const SEARCH = '<i class="fas fa-search"></i>';
@@ -140,7 +140,7 @@ interface STYLE
 
   public const MAIL_TITLE = " btn btn-link text-decoration-none text-white btn-block bg-gold " . self::NO_BDR_AND_RND;
   public const MAIL_EMPTY = " p-5 m-0 text-dark h3 text-center border-bottom border-secondary ";
-  public const MAIL_LINK_MENU = "nav-link text-dark " . self::NO_BDR_AND_RND;
+  public const MAIL_LINK_MENU = "nav-link text-dark small" . self::NO_BDR_AND_RND;
 
   public const LOGIN_ACTIVE = " bg-gold text-white font-weight-bold mx-auto col ndrt-hover ";
   public const LOGIN_INACTIVE = " bg-dark text-gold mx-auto col ndrt-hover ";

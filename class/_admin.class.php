@@ -3,7 +3,7 @@
 class ADMIN extends DB
 {
 
-  public const ADD_ITEM_PAGE = ['category','user','order','product'];
+  public const ADD_ITEM_PAGE = ['category','user','order','product','mail'];
 
   public function getAdminPage($reference)
   {

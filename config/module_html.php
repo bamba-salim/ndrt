@@ -135,62 +135,6 @@ function CLOSE_WINDOW()
 <?php
 }
 
-function listMail($object)
-{
-  $MAIL = new MAIL();
-  $object['list'] = $MAIL->getMailsList($object);
-  extract($object);
-?>
-  <div class="rounded-0 border-0">
-    <!-- header -->
-    <div class="my-1 m-0">
-      <?= "<span class'm-0'>$name</span>" ?>
-      <hr class="bg-dark pb-1 pt-0 m-0" />
-    </div>
-    <!-- / header -->
-    <?php
-    if (count($list) < 1) :
-      echo "<div class='" . STYLE::MAIL_EMPTY . "'>$message</div>";
-    else :
-      foreach ($list as $value) :
-    ?>
-        <div class="border-bottom border-secondary p-0 m-0">
-          <div class="m-0 p-0 p-2">
-            <div class="row p-0 m-0 small">
-              <div class="col-7 p-2">
-                <?= $MAIL->readStatuts($value->readed) ?>
-                <?= "<span class='font-weight-bold'>{$value->name}</span>" ?>
-                <?= "<a href='mailto:{$value->mail}' class='text-dark text-decoration-none text-muted ml-2'>{$value->mail}</a>" ?>
-              </div>
-              <div class="col text-right p-2">
-                <?= date('M d, Y') == $value->date ? $value->hour : $value->date ?>
-              </div>
-            </div>
-            <div class="row p-0 m-0">
-              <div class="col text-truncate p-2">
-                <?= $value->sujet ?>
-              </div>
-            </div>
-            <div class="row p-0 m-0">
-              <div class="col-8 col-md-10 small p-2">
-                <?= $value->ref ?>
-              </div>
-              <div class="col text-right">
-                <div class="btn-group">
-                  <?= "<a href='./admin?ad=mail&action=del&id={$value->ref}' class='ndrt-hover text-dark rounded-0'>" . ICON::TRASH . "</a>" ?> </div>
-                <?= "<a data-toggle='modal' data-target='#mailModal' class='ndrt-hover text-dark rounded-0'>" . ICON::EYE . "</a>" ?>
-              </div>
-            </div>
-          </div>
-        </div>
-  </div>
-
-<?php
-      endforeach;
-    endif;
-?>
-<?php
-}
 
 function debug()
 {

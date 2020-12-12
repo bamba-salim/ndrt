@@ -52,7 +52,7 @@ if (!isset($_GET['ref'])) :
         break;
       case 'err':
         echo '<div class="alert alert-danger p-0 m-0 border-0 rounded-0">';
-        echo  '<p class="w-100 small p-2">Veuillez entrez une recherche valide</p>';
+        echo '<p class="w-100 small p-2">Veuillez entrez une recherche valide</p>';
         echo '</div>';
         break;
       case 'on':
@@ -73,12 +73,12 @@ if (!isset($_GET['ref'])) :
         </div>
         <div class="col-9 col-md-7 row">
           <div class="col-md-6 col-12">
-            <div class="p-1"><?= ucfirst($user->nom) . ' test ' . ucfirst($user->prenom) ?></div>
+            <div class="p-1"><?="$user->username"?></div>
             <div class="p-1"><?= $user->mail ?></div>
           </div>
         </div>
         <div class="col-md-3 md-screen">
-          <div class="p-1"><?= $USER->DATE($user->createdat) ?></div>
+          <div class="p-1"><?= $USER->DATE($user->created_at) ?></div>
           <div class="p-1">Order:</div>
         </div>
       </div>
@@ -87,7 +87,6 @@ if (!isset($_GET['ref'])) :
   </section>
   <?php
 else :
-
 
   $u = $USER->getUser($_GET['ref']);
   if (empty($u)) {
