@@ -71,14 +71,17 @@ function activeMail(id) {
 function comfirmUpdate(id, update = "") {
   if (update == "") var update = $("#updateVal" + id).val();
 
+  console.log(update + " " + id);
   $.ajax({
     url: "./_set",
     method: "GET",
     data: { ad: "mail", action: update, id: id },
     dataTypes: "text",
-    success: function (data) {
+    success: function () {
       console.log("succes")
-      console.log(data)
+      $('#updateModal' + id).modal('hide');
+      location.reload(true)
+      
     }
   })
 

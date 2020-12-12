@@ -59,24 +59,24 @@ class MAIL extends DB implements ICON, MAIL_CONST
     endswitch;
   }
 
-  public function gestionArchiveStatut($object)
-  {
-    extract($object);
-    $this->update(
-      "where ref = :ref",
-      array(
-        "is_archive = :set",
-      ),
-      array(
-        ":ref" => $ref,
-        ":set" => $set,
-      )
-    );
-  }
+
 
   public function gestionStatut($object)
   {
+
+    // archive | unarchive
+    $values = isset($object->archive) ? "is_archive = :set" : "";
+    $values = isset($object->unarchive) ? "is_archive = :set" : "";
+    // read | unread
+    $values = isset($object->read) ? "is_read = :set" : "";
     $values = isset($object->unread) ? "is_read = :set" : "";
+    // save | unsave
+    $values = isset($object->save) ? "is_save = :set" : "";
+    $values = isset($object->unsave) ? "is_save = :set" : "";
+    // active | inactive
+    $values = isset($object->active) ? "is_active = :set" : "";
+    $values = isset($object->inactive) ? "is_active = :set" : "";
+    
     $req = new stdClass();
 
     $req->table = self::TABLE['mail'];
@@ -87,20 +87,7 @@ class MAIL extends DB implements ICON, MAIL_CONST
     $this->update($req);
   }
 
-  public function gestionActiveStatut($object)
-  {
-    extract($object);
-    $this->update(
-      "where ref = :ref",
-      array(
-        "is_active = :set",
-      ),
-      array(
-        ":ref" => $ref,
-        ":set" => $set,
-      )
-    );
-  }
+
 
   // todo: à refaire
   public function deleteMail($object)
@@ -130,18 +117,9 @@ class MAIL extends DB implements ICON, MAIL_CONST
       <div class="col">
         <div class="card alert alert-light rounded-0 shadow-sm" role="alert">
           <table class="table table-striped table-borderless">
-            <!-- <thead>
-              <tr>
-                <th scope="col">Mail</th>
-                <th scope="col">date</th>
-                <th scope="col" class="text-right">action</th>
-              </tr>
-            </thead> -->
-
-            <tbody id="listMail">
+            <tbody>
               <?php foreach ($list as $mail) : ?>
                 <tr>
-                  <?php var_dump($mail) ?>
                   <th scope="row">
                     <span <?= $this->hidden($mail->readed) ?>>
                       <div class="d-inline text-danger d-none"><?= ICON::CIRCLE ?></div>

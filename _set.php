@@ -27,51 +27,70 @@ if (isset($_GET['ad'])) {
     case 'mail':
       if (isset($_GET['action'])) {
         switch ($_GET['action']) {
-          case 'archive':
-            var_dump("{$_GET['action']} {$_GET['id']}");
+          case 'archive': // 1
+            var_dump("archive"); 
+            $mail = new stdClass();
+            $mail->archive = true;
+            $mail->set = 1;
+            $mail->id = $_GET['id'];
 
-            $object['ref'] = $_GET['ref'];
-            $object['set'] = $MAIL::TRUE;
-            //$MAIL->gestionArchiveStatut($object);
+            $MAIL->gestionStatut($mail);
             break;
-          case 'unarchive':
-            var_dump("{$_GET['action']} {$_GET['id']}");
+          case 'unarchive': // 2
+            $mail = new stdClass();
+            $mail->unarchive = true;
+            $mail->set = 0;
+            $mail->id = $_GET['id'];
 
-            $object['ref'] = $_GET['ref'];
-            $object['set'] = $MAIL::FALSE;
-            //$MAIL->gestionArchiveStatut($object);
+            $MAIL->gestionStatut($mail);
             break;
-          case 'read':
-            var_dump("{$_GET['action']} {$_GET['id']}");
+          case 'read': // 3
+            $mail = new stdClass();
+            $mail->read = true;
+            $mail->set = 1;
+            $mail->id = $_GET['id'];
 
-            $object['ref'] = $_GET['ref'];
-            $object['set'] = $MAIL::TRUE;
-            //$MAIL->gestionReadStatut($object);
+            $MAIL->gestionStatut($mail);
             break;
-          case 'unread':
-           // var_dump("{$_GET['action']} {$_GET['id']}");
+          case 'unread': // 4
             $mail = new stdClass();
             $mail->unread = true;
             $mail->set = 0;
             $mail->id = $_GET['id'];
 
+            $MAIL->gestionStatut($mail);
+            break;
+          case 'save': // 5
+            $mail = new stdClass();
+            $mail->save = true;
+            $mail->set = 1;
+            $mail->id = $_GET['id'];
 
             $MAIL->gestionStatut($mail);
             break;
-          case 'save':
-            var_dump("{$_GET['action']} {$_GET['id']}");
-            break;
-          case 'unsave':
-            var_dump("{$_GET['action']} {$_GET['id']}");
+          case 'unsave': // 6
+            $mail = new stdClass();
+            $mail->unsave = true;
+            $mail->set = 0;
+            $mail->id = $_GET['id'];
+
+            $MAIL->gestionStatut($mail);
             break;
           case 'active':
-            var_dump("{$_GET['action']} {$_GET['id']}");
+            $mail = new stdClass();
+            $mail->active = true;
+            $mail->set = 1;
+            $mail->id = $_GET['id'];
+
+            $MAIL->gestionStatut($mail);
             break;
           case 'inactive':
-            var_dump("{$_GET['action']} {$_GET['id']}");
-            break;
-          default:
-            # code...
+            $mail = new stdClass();
+            $mail->inactive = true;
+            $mail->set = 0;
+            $mail->id = $_GET['id'];
+
+            $MAIL->gestionStatut($mail);
             break;
         }
       }
