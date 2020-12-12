@@ -59,7 +59,7 @@ class GENERAL implements ALL, STYLE, OPTION, SQL, IMG
 
   public function HOUR($date)
   {
-    return date_format(date_create($date), 'i:H');
+    return date_format(date_create($date), 'H:i');
   }
 
 
@@ -71,6 +71,13 @@ class GENERAL implements ALL, STYLE, OPTION, SQL, IMG
     return $value;
   }
 
-  // $order->created_at = date_format(date_create(), 'Y-m-d H:i:s');
-  // $order->predict_at = date_format(date_add(date_create(), date_interval_create_from_date_string('3 days')), 'Y-m-d H:i:s');
+  public function switchDateFormat($date)
+  {
+    if($this->DATE($this->date) == $this->DATE($date)){
+      return $this->HOUR($date);
+    }else{
+      return $this->DATE($date);
+    }
+  }
+
 }

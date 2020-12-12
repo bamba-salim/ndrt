@@ -14,19 +14,28 @@ class MAIL extends DB implements ICON, MAIL_CONST
     $this->query2(self::SEND, array(':name' => $name, ':msg' => $message, ':sujet' => $sujet, ':mail' => $mail, ':ref' => $ref));
   }
 
-  public function readStatuts($status)
+  public function getAllList()
   {
-    return $status == self::TRUE ? "<span class='text-danger'>" . self::CRCLE . "</span>" : "";
+    $req = new stdClass();
+    $req->conditions = "WHERE 0 and is_active = 1 and is_archive = 0 order by created_at DESC";
+    $req->colonnes = ["m.*", self::STATUS];
+
+    $req = [
+      "conditions" => "WHERE is_active = 1 and is_archive = 0 order by created_at DESC",
+      "colonnes" => ["m.*", self::STATUS],
+    ];
+
+    return $this->select($req);
   }
 
   public function getUnreadList()
   {
     $req = new stdClass();
-    $req->conditions = "WHERE is_read = 0 and is_active = 1 and is_archive = 0 and is_save = 0";
+    $req->conditions = "WHERE is_read = 0 and is_active = 1 and is_archive = 0 and is_save = 0 order by created_at DESC";
     $req->colonnes = ["m.*", self::STATUS];
 
     $req = [
-      "conditions" => "WHERE is_read = 0 and is_active = 1 and is_archive = 0 and is_save = 0",
+      "conditions" => "WHERE is_read = 0 and is_active = 1 and is_archive = 0 and is_save = 0 order by created_at DESC",
       "colonnes" => ["m.*", self::STATUS],
     ];
 
@@ -50,40 +59,6 @@ class MAIL extends DB implements ICON, MAIL_CONST
     endswitch;
   }
 
-  public function getMailsList($object)
-  {
-    extract($object);
-    return $this->get(
-      "WHERE is_read in (:read) and is_active in (:active) and is_archive in (:archive) and is_save in (:save)",
-      array(),
-      array(
-        self::INFO,
-        self::STATUS,
-      ),
-      array(
-        ":read" => implode(",", $read),
-        ":active" => implode(",", $active),
-        ":archive" => implode(",", $archive),
-        ":save" => implode(",", $save),
-      )
-    );
-  }
-
-  public function getMail($ref)
-  {
-    return $this->get(
-      "where ref = :ref",
-      array(),
-      array(
-        self::INFO,
-        self::STATUS,
-      ),
-      array(
-        ":ref" => $ref,
-      )
-    )[0];
-  }
-
   public function gestionArchiveStatut($object)
   {
     extract($object);
@@ -99,19 +74,17 @@ class MAIL extends DB implements ICON, MAIL_CONST
     );
   }
 
-  public function gestionReadStatut($object)
+  public function gestionStatut($object)
   {
-    extract($object);
-    $this->update(
-      "where ref = :ref",
-      array(
-        "is_read = :set",
-      ),
-      array(
-        ":ref" => $ref,
-        ":set" => $set,
-      )
-    );
+    $values = isset($object->unread) ? "is_read = :set" : "";
+    $req = new stdClass();
+
+    $req->table = self::TABLE['mail'];
+    $req->conditions = "where id = :id";
+    $req->values = [$values];
+    $req->data = [":id" => $object->id, ":set" => $object->set];
+
+    $this->update($req);
   }
 
   public function gestionActiveStatut($object)
@@ -143,50 +116,81 @@ class MAIL extends DB implements ICON, MAIL_CONST
     $this->delete($req);
   }
 
-  public function mailsList($object)
-  { ?>
+  public function mailsList($list, $title, $message)
+  {
+?>
     <div class="row row-cols-1">
       <div class="col">
         <div class="card alert alert-light bg-dark rounded-0 shadow-sm p-0">
           <div class="pt-3">
-            <p class='lead text-uppercase text-white text-center p-0'> <?= $object->title ?></p>
+            <p class='lead text-uppercase text-white text-center p-0'> <?= $title ?></p>
           </div>
         </div>
       </div>
       <div class="col">
         <div class="card alert alert-light rounded-0 shadow-sm" role="alert">
           <table class="table table-striped table-borderless">
-            <thead>
+            <!-- <thead>
               <tr>
                 <th scope="col">Mail</th>
                 <th scope="col">date</th>
                 <th scope="col" class="text-right">action</th>
               </tr>
-            </thead>
+            </thead> -->
 
-            <tbody>
-              <?php foreach ($object->list as $mail) : ?>
+            <tbody id="listMail">
+              <?php foreach ($list as $mail) : ?>
                 <tr>
+                  <?php var_dump($mail) ?>
                   <th scope="row">
-                    <div class="d-inline text-danger"><?= ICON::CIRCLE ?></div>
-                    <div class="d-inline text-warning"><?= ICON::STAR ?></div>
-                    <div class="d-inline text-dark"><?= ICON::UNSTAR ?></div>
-                    <div class="d-inline">client - object</div>
+                    <span <?= $this->hidden($mail->readed) ?>>
+                      <div class="d-inline text-danger d-none"><?= ICON::CIRCLE ?></div>
+                    </span>
+                    <span <?= $this->hidden(!$mail->readed) ?>>
+                      <div class="d-inline text-dakr d-none" onclick="unreadMail(<?= $mail->id ?>)"><?= ICON::UNCIRCLE ?></div>
+                    </span>
+                    <span <?= $this->hidden(!$mail->saved) ?>>
+                      <div class="d-inline text-warning" onclick="unsaveMail(<?= $mail->id ?>)"><?= ICON::STAR ?></div>
+                    </span>
+                    <span <?= $this->hidden($mail->saved) ?>>
+                      <div class="d-inline text-dark" onclick="saveMail(<?= $mail->id ?>)"><?= ICON::UNSTAR ?></div>
+                    </span>
+                    <div class="ml-2 d-inline"><?= $mail->name ?> - <a class="text-muted font-italic text-decoration-none" href="mailto:<?= $mail->mail ?>"><?= $mail->mail ?></a> - <span class="text-muted"><?= $mail->sujet ?></span> </div>
                   </th>
-                  <td>date</td>
+                  <td class="text-right"><?= $this->switchDateFormat($mail->created_at) ?></td>
                   <td class="text-right">
-                    <a href=""><?= ICON::EYE ?></a>
-                    <a href=""><?= ICON::STAR ?></a>
-                    <a href=""><?= ICON::UNSTAR ?></a>
-                    <a href=""><?= ICON::ARCHIVE ?></a>
-                    <a href=""><?= ICON::UNARCHIVE ?></a>
-                    <a href=""><?= ICON::TRASH ?></a>
+                    <a onclick="viewMail(<?= $mail->id ?>)" class="pointer"><?= ICON::EYE ?></a>
+                    <a onclick="archiveMail(<?= $mail->id ?>)" class="pointer"><?= ICON::ARCHIVE ?></a>
+                    <a onclick="unarchiveMail(<?= $mail->id ?>)" class="pointer"><?= ICON::UNARCHIVE ?></a>
+                    <a onclick="inactiveMail(<?= $mail->id ?>)" class="pointer"><?= ICON::TRASH ?></a>
                   </td>
                 </tr>
+
+                <div class="modal fade" id="updateModal<?= $mail->id ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+
+                      <div class="modal-body">
+                        <p id="textUpdate<?= $mail->id ?>"></p>
+                        <p id="updateVal<?= $mail->id ?>"></p>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="updateBtn" onclick="comfirmUpdate(<?= $mail->id ?>)">Save changes</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               <?php endforeach; ?>
             </tbody>
           </table>
-          <p <?= $this->hidden(!empty($object->list)) ?> class="text-center h4 text-dark"><?= $object->emptyMessage ?></p>
+          <p <?= $this->hidden(!empty($list)) ?> class="text-center h4 text-dark"><?= $message ?></p>
         </div>
       </div>
 

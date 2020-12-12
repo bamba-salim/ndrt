@@ -2,11 +2,6 @@
 $MAIL = new MAIL();
 $NAV = new NAV();
 
-$all = new stdClass();
-$all->title = "Boite de reception";
-$all->list = [];
-$all->emptyMessage = "Voitre boîte de reception est vide";
-
 ?>
 
 <div class=" mx-auto col-12 col-md-10 container-fluid">
@@ -47,9 +42,13 @@ $all->emptyMessage = "Voitre boîte de reception est vide";
     <div class="col">
       <div class="tab-content" id="v-pills-tabContent">
         <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">
-          <?php 
-
-          $MAIL->mailsList($all) ?>
+          <?php
+          $MAIL->mailsList(
+            $MAIL->getAllList(),
+            "Boite de reception",
+            "Voitre boîte de reception est vide"
+          )
+          ?>
         </div>
         <div class="tab-pane fade" id="unreaded" role="tabpanel" aria-labelledby="unreaded-tab">Non Lus</div>
         <div class="tab-pane fade" id="readed" role="tabpanel" aria-labelledby="readed-tab">Lus</div>

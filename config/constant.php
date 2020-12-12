@@ -82,13 +82,15 @@ interface ICON
   public const INSTAGRAM = '<i class="fab fa-instagram"></i>';
   public const FACEBOOK = '<i class="fab fa-facebook-f"></i>';
   public const TWITTER = '<i class="fab fa-twitter"></i>';
-  public const CIRCLE = '<i class="fas fa-circle"></i>';
   public const CROSS = '<i class="fas fa-times"></i>';
   public const REFRESH = '<i class="fas fa-sync"></i>';
   public const SEARCH = '<i class="fas fa-search"></i>';
   public const CART = '<i class="fas fa-shopping-bag"></i>';
   public const POWER = '<i class="fas fa-power-off"></i>';
   public const INVOICE = '<i class="fas fa-receipt"></i>';
+
+  public const CIRCLE = '<i class="fas fa-circle"></i>';
+  public const UNCIRCLE = '<i class="far fa-circle"></i>';
 
   public const INBOX = '<i class="fas fa-inbox"></i>';
 

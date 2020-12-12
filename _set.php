@@ -2,7 +2,6 @@
 require './config/config.php';
 extract($_POST);
 $errors = [];
-var_dump($_POST);
 
 if (isset($_GET['ad'])) {
   switch ($_GET['ad']) {
@@ -28,27 +27,49 @@ if (isset($_GET['ad'])) {
     case 'mail':
       if (isset($_GET['action'])) {
         switch ($_GET['action']) {
-          case 'achrived':
-            $object['ref'] = $_GET['ref'];
-            $object['set'] = $MAIL::TRUE;
-            $MAIL->gestionArchiveStatut($object);
-            break;
-          case 'unarchived':
-            $object['ref'] = $_GET['ref'];
-            $object['set'] = $MAIL::FALSE;
-            $MAIL->gestionArchiveStatut($object);
-            break;
-          case 'readed':
-            $object['ref'] = $_GET['ref'];
-            $object['set'] = $MAIL::TRUE;
-            $MAIL->gestionReadStatut($object);
-            break;
-          case 'unreaded':
-            $object['ref'] = $_GET['ref'];
-            $object['set'] = $MAIL::FALSE;
-            $MAIL->gestionReadStatut($object);
-            break;
+          case 'archive':
+            var_dump("{$_GET['action']} {$_GET['id']}");
 
+            $object['ref'] = $_GET['ref'];
+            $object['set'] = $MAIL::TRUE;
+            //$MAIL->gestionArchiveStatut($object);
+            break;
+          case 'unarchive':
+            var_dump("{$_GET['action']} {$_GET['id']}");
+
+            $object['ref'] = $_GET['ref'];
+            $object['set'] = $MAIL::FALSE;
+            //$MAIL->gestionArchiveStatut($object);
+            break;
+          case 'read':
+            var_dump("{$_GET['action']} {$_GET['id']}");
+
+            $object['ref'] = $_GET['ref'];
+            $object['set'] = $MAIL::TRUE;
+            //$MAIL->gestionReadStatut($object);
+            break;
+          case 'unread':
+           // var_dump("{$_GET['action']} {$_GET['id']}");
+            $mail = new stdClass();
+            $mail->unread = true;
+            $mail->set = 0;
+            $mail->id = $_GET['id'];
+
+
+            $MAIL->gestionStatut($mail);
+            break;
+          case 'save':
+            var_dump("{$_GET['action']} {$_GET['id']}");
+            break;
+          case 'unsave':
+            var_dump("{$_GET['action']} {$_GET['id']}");
+            break;
+          case 'active':
+            var_dump("{$_GET['action']} {$_GET['id']}");
+            break;
+          case 'inactive':
+            var_dump("{$_GET['action']} {$_GET['id']}");
+            break;
           default:
             # code...
             break;
@@ -58,7 +79,7 @@ if (isset($_GET['ad'])) {
     case 'adress':
       $ADRESSE->updateAdress($_POST);
       header("location: ./profile");
-      break;    
+      break;
     case 'order':
       var_dump($_GET['id']);
 
@@ -68,7 +89,7 @@ if (isset($_GET['ad'])) {
       $ORDER->gestionStatus($order);
       $NAV->goBack();
       break;
-      default:
+    default:
       // header('location: ./');
       break;
   }
