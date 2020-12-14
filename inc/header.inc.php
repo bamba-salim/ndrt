@@ -4,10 +4,7 @@
 
     if ($NAV->isLog()) :
       $uRole =  $NAV->isCollab() ? " | {$_SESSION['user']->role}"  : "";
-
-
-      // $cats['type'] = 1;
-      // $cats['limit'] = 4;
+      $test_link  = $NAV->isAdmin() ? "| <a href='./_test' class='" . STYLE::BAR_LINK . " text-white'>TEST</a>" : "";
     ?>
 
       <section class="bg-dark p-1 small border-0">
@@ -15,7 +12,7 @@
           <a href=""></a>
           <a href=""></a>
           <a href=""></a>
-          <?= "<a href='./profile' class='" . STYLE::BAR_LINK . " text-light'>{$_SESSION['user']->username}{$uRole}</a>" ?> <?= $NAV->isAdmin() ? "| <a href='./_test' class='" . STYLE::BAR_LINK . " text-white'>TEST</a>" : "" ?> <?= "| <a href='./_log?action=out' class='" . STYLE::BAR_LINK . " text-danger'>" . ICON::LOGOUT . "</a>" ?>
+          <?= "<a href='./profile' class='" . STYLE::BAR_LINK . " text-light'>{$_SESSION['user']->username}{$uRole}</a>$test_link| <a href='./_log?action=out' class='" . STYLE::BAR_LINK . " text-danger'>" . ICON::LOGOUT . "</a>" ?>
         </div>
       </section>
     <?php

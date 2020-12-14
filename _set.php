@@ -77,8 +77,6 @@ if (isset($_GET['ad'])) {
             $MAIL->gestionStatut($mail);
             break;
 
-
-
             // delete from inative
           case 'active':
             $mail = new stdClass();
