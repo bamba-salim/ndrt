@@ -51,7 +51,9 @@ class DB extends GENERAL
   public function query($req)
   {
     $newReq = $this->DB->prepare($req->sql);
-    // var_dump($newReq);
+    var_dump($newReq);
+
+
     $newReq->execute($req->data);
   }
 
@@ -98,6 +100,8 @@ class DB extends GENERAL
     $req = new stdClass();
     $req->sql = "UPDATE $table SET $v $object->conditions";
     $req->data = empty($object->data) ? [] : $object->data;
+
+
 
     $this->query($req);
   }

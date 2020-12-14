@@ -7,13 +7,18 @@ $NAV = new NAV();
 <div class=" mx-auto col-12 col-md-10 container-fluid">
   <div class="row my-5">
     <div class="col-4 col-md-2">
-      <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-        <a class="<?= STYLE::MAIL_LINK_MENU ?> active" id="all-tab" data-toggle="pill" href="#all" role="tab" aria-controls="all" aria-selected="true">
+      <div class="nav flex-column nav-pills" id="mails-tab" role="tablist" aria-orientation="vertical">
+        <a class="<?= STYLE::MAIL_LINK_MENU ?>" id="all-tab" data-toggle="pill" href="#all" role="tab" aria-controls="all" aria-selected="true">
           <div class="d-inline mr-2"><?= ICON::INBOX ?></div>
           <div class="d-inline">Boite de réception</div>
+          <span class="badge bg-danger text-white p-1 square-pill <?= STYLE::NO_BDR_AND_RND ?>">14</span>
+          <div class="d-iline text-right">
+            
+          </div>
+
         </a>
         <hr />
-        <a class="<?= STYLE::MAIL_LINK_MENU ?>" id="unreaded-tab" data-toggle="pill" href="#unreaded" role="tab" aria-controls="unreaded" aria-selected="true">
+        <a class="<?= STYLE::MAIL_LINK_MENU ?>  active" id="unreaded-tab" data-toggle="pill" href="#unreaded" role="tab" aria-controls="unreaded" aria-selected="true">
           <div class="d-inline mr-2"><?= ICON::UNREAD ?></div>
           <div class="d-inline">Non-lus</div>
         </a>
@@ -40,29 +45,8 @@ $NAV = new NAV();
       </div>
     </div>
     <div class="col">
-      <div class="tab-content" id="v-pills-tabContent">
-        <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">
-          <?php $MAIL->mailsList( $MAIL->getAllList(), "Boite de reception", "Voitre boîte de reception est vide" ) ?>
-        </div>
-        <div class="tab-pane fade" id="unreaded" role="tabpanel" aria-labelledby="unreaded-tab">
-        <?php $MAIL->mailsList( [], "Messages non-lus", "Vous n'avez pas de nouveaux messages." ) ?>
-        </div>
-        <div class="tab-pane fade" id="readed" role="tabpanel" aria-labelledby="readed-tab">
-        <?php $MAIL->mailsList( [], "Messages non-lus", "Vous n'avez plus de messages non-lus." ) ?>
-
-        </div>
-        <div class="tab-pane fade" id="saved" role="tabpanel" aria-labelledby="saved-tab">
-        <?php $MAIL->mailsList( [], "Messages enregistrés", "Vous n'avez pas de messages enregistrés." ) ?>
-
-        </div>
-        <div class="tab-pane fade" id="archived" role="tabpanel" aria-labelledby="archived-tab">
-        <?php $MAIL->mailsList( [], "Messages archivés", "Vous n'avez pas de messages archivés." ) ?>
-
-        </div>
-        <div class="tab-pane fade" id="trashed" role="tabpanel" aria-labelledby="trashed-tab">
-        <?php $MAIL->mailsList( [], "Message supprimés", "Votre corbeil est vide." ) ?>
-
-        </div>
+      <div class="tab-content" id="mails-tabContent">
+        <?php include './src/module/mail_section_module.php' ?>
       </div>
     </div>
   </div>

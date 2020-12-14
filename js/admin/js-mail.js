@@ -1,97 +1,106 @@
 $(function () {
   console.log("ready");
-
-
+  $( "#dialog" ).dialog();
 });
 
 function addButton() {
-  console.log("send mail");
-  //href='./admin?ad=<?= $_GET['ad'] ?>&action=add'
+	console.log("send mail");
+	//href='./admin?ad=<?= $_GET['ad'] ?>&action=add'
 }
 
-function viewMail(id) {
-  $('#viewMailModal' + id).modal('show', function () {
-    readMail(id)
-  })
 
-}
-
-// read
-function readMail(id) {
-  comfirmUpdate(id, "read");
+///// VIEW MODAL /////
+function viewMail(ref) {
+  window.open('./src/module/single_mail_module?ref='+ref,'height=200,width=150')
+	// _open_modal_set_update(id, "view", function (id) {
+	// 	readMail(id);
+	// });
 }
 
 
 
-// unread
-function unreadMail(id) {
-  comfirmUpdate(id, "unread");
-}
 
-
-// delete from save
-function unsaveMail(id) {
-  _open_modal_set_update(id, "unsave", "Supprimez " + id + " des sauvegardes", "Comfirmez vous l'archivage de ce messgae (id: " + id + ") ?", "archive")
-}
-
-// send to saved
+///// SAVE | UNSAVE /////
 function saveMail(id) {
-  _open_modal_set_update(id, "save", "Sauvegarder " + id, "Sauvegardez " + id, "Comfirmez vous la sauvegarde ce message ?")
+  comfirmUpdate(id, "save");
+  _reload();
 }
-
-//mail
-function archiveMail(id) {
-  _open_modal_set_update(id, "archive", "Comfirmez vous l'archivage de ce messgae ?")
-}
-
-
-
-// send to trashed
-function inactiveMail(id) {
-  _open_modal_set_update(id, "inactive", "Comfirmez vous l'archivage de ce messgae ?")
-}
-
-
-// delete from archive
-function unarchiveMail(id) {
-  comfirmUpdate(id, "unarchive")
-}
-
-// delete from save
 function unsaveMail(id) {
-  comfirmUpdate(id, "unsave")
+	comfirmUpdate(id, "unsave");
+	_reload();
 }
 
-// delete from trashed
+///// READ | UNREAD /////
+function readMail(id) {
+	comfirmUpdate(id, "read");
+}
+function unreadMail(id) {
+	comfirmUpdate(id, "unread");
+	_reload();
+}
+
+///// ARCHIVE | UNARCHIVE /////
+function archiveMail(id) {
+  comfirmUpdate(id, "archive");
+  _reload();
+}
+function unarchiveMail(id) {
+	comfirmUpdate(id, "unarchive");
+	_reload();
+}
+
+///// ACTIVE | INACTIVE /////
 function activeMail(id) {
-  comfirmUpdate(id, "active")
+	comfirmUpdate(id, "active");
+	_reload();
+}
+function inactiveMail(id) {
+  comfirmUpdate(id, "inactive");
+  _reload();
 }
 
+
+// delete
+function deleteMail(id) {
+	_open_modal_set_update(id, "delete");
+}
+
+// delete all
+function deleteAllMail(id) {
+	_open_modal_set_update(id, "deleteAll");
+}
+
+
+
+// COMMUN FUNCTION
+
+//OPEN MODAL
+function _open_modal_set_update(id, update) {
+	$("#" + update + "-modal-" + id).modal("show");
+	console.log("#" + update + "-modal-" + id);
+}
 
 function comfirmUpdate(id, update = "") {
-  if (update == "") var update = $("#updateVal" + id).val();
+	console.log(update + " " + id);
 
-  console.log(update + " " + id);
-  $.ajax({
-    url: "./_set",
-    method: "GET",
-    data: { ad: "mail", action: update, id: id },
-    dataTypes: "text",
-    success: function () {
-      console.log("succes")
-      $('#updateModal' + id).modal('hide');
-      location.reload(true)
-      
-    }
-  })
+	window.open("./_set?ad=mail&action=" + update + "&id=" + id, "_self");
+	
+  // $.ajax({
+  //   url: "./_set",
+  //   method: "GET",
+  //   data: { ad: "mail", action: update, id: id },
+  //   dataTypes: "text",
+  //   success: function () {
+  //     console.log("succes")
+
+  //   }
+  // })
 
 }
 
-function _open_modal_set_update(id, update, title, message = "") {
-  $('#updateModal' + id).modal('show');
-  $('#titleModal' + id).text(title);
-  $("#textUpdate" + id).text(message);
-  $("#updateVal" + id).val(update);
-
-
+function _reload() {
+  // $('#mails-tabContent').load('./')
+  // $('#mails-tabContent').load('./src/module/mail_section_module.php')
+	console.log("reload");
+	// location.reload(true);
 }

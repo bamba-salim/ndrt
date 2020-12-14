@@ -30,5 +30,5 @@ include_once './inc/head.inc.php';
 
   <?php
   $script_link = !empty($_GET['ad']) ? $_GET['ad'] : "admin";
-  $script = "./js/admin/js-{$script_link}.js?vr=4" ?>
+  $script = "./js/admin/js-{$script_link}.js?vr=6" ?>
   <?php include_once './inc/footer.inc.php'; ?>
