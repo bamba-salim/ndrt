@@ -30,6 +30,8 @@ class DB extends GENERAL
       die('<h1>Impossible de se connecter à la base de donnée</h1>');
     }
 
+    $this->DB->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
+
     $this->ref = $this->generateRef();
     $this->date = $this->generateDate();
 
@@ -72,7 +74,7 @@ class DB extends GENERAL
     // var_dump($req);
     // var_dump($data);
     $req->execute($data);
-    return $req->fetchAll(PDO::FETCH_OBJ);
+    return $req->fetchAll();
   }
 
   // create
@@ -118,7 +120,7 @@ class DB extends GENERAL
   {
     $req = $this->DB->prepare($sql);
     $req->execute($data);
-    return $req->fetchALL(PDO::FETCH_OBJ);
+    return $req->fetchALL();
   }
 
 
@@ -134,6 +136,6 @@ class DB extends GENERAL
     //var_dump($req);
     //var_dump($data);
     $req->execute($data);
-    return $req->fetchAll(PDO::FETCH_OBJ);
+    return $req->fetchAll();
   }
 }
